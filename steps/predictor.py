@@ -11,15 +11,6 @@ def predictor(
     service: MLFlowDeploymentService,
     input_data: str,
 ) -> np.ndarray:
-    """Run an inference request against a prediction service.
-
-    Args:
-        service (MLFlowDeploymentService): The deployed MLFlow service for prediction.
-        input_data (str): The input data as a JSON string.
-
-    Returns:
-        np.ndarray: The model's prediction.
-    """
 
     # Start the service (should be a NOP if already started)
     service.start(timeout=10)
