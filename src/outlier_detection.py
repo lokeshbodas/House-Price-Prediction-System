@@ -13,15 +13,6 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 class OutlierDetectionStrategy(ABC):
     @abstractmethod
     def detect_outliers(self, df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Abstract method to detect outliers in the given DataFrame.
-
-        Parameters:
-        df (pd.DataFrame): The dataframe containing features for outlier detection.
-
-        Returns:
-        pd.DataFrame: A boolean dataframe indicating where outliers are located.
-        """
         pass
 
 
