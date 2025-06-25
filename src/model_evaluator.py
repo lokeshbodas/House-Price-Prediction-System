@@ -16,17 +16,6 @@ class ModelEvaluationStrategy(ABC):
     def evaluate_model(
         self, model: RegressorMixin, X_test: pd.DataFrame, y_test: pd.Series
     ) -> dict:
-        """
-        Abstract method to evaluate a model.
-
-        Parameters:
-        model (RegressorMixin): The trained model to evaluate.
-        X_test (pd.DataFrame): The testing data features.
-        y_test (pd.Series): The testing data labels/target.
-
-        Returns:
-        dict: A dictionary containing evaluation metrics.
-        """
         pass
 
 
@@ -35,17 +24,6 @@ class RegressionModelEvaluationStrategy(ModelEvaluationStrategy):
     def evaluate_model(
         self, model: RegressorMixin, X_test: pd.DataFrame, y_test: pd.Series
     ) -> dict:
-        """
-        Evaluates a regression model using R-squared and Mean Squared Error.
-
-        Parameters:
-        model (RegressorMixin): The trained regression model to evaluate.
-        X_test (pd.DataFrame): The testing data features.
-        y_test (pd.Series): The testing data labels/target.
-
-        Returns:
-        dict: A dictionary containing R-squared and Mean Squared Error.
-        """
         logging.info("Predicting using the trained model.")
         y_pred = model.predict(X_test)
 
@@ -62,36 +40,13 @@ class RegressionModelEvaluationStrategy(ModelEvaluationStrategy):
 # Context Class for Model Evaluation
 class ModelEvaluator:
     def __init__(self, strategy: ModelEvaluationStrategy):
-        """
-        Initializes the ModelEvaluator with a specific model evaluation strategy.
-
-        Parameters:
-        strategy (ModelEvaluationStrategy): The strategy to be used for model evaluation.
-        """
         self._strategy = strategy
 
     def set_strategy(self, strategy: ModelEvaluationStrategy):
-        """
-        Sets a new strategy for the ModelEvaluator.
-
-        Parameters:
-        strategy (ModelEvaluationStrategy): The new strategy to be used for model evaluation.
-        """
         logging.info("Switching model evaluation strategy.")
         self._strategy = strategy
 
     def evaluate(self, model: RegressorMixin, X_test: pd.DataFrame, y_test: pd.Series) -> dict:
-        """
-        Executes the model evaluation using the current strategy.
-
-        Parameters:
-        model (RegressorMixin): The trained model to evaluate.
-        X_test (pd.DataFrame): The testing data features.
-        y_test (pd.Series): The testing data labels/target.
-
-        Returns:
-        dict: A dictionary containing evaluation metrics.
-        """
         logging.info("Evaluating the model using the selected strategy.")
         return self._strategy.evaluate_model(model, X_test, y_test)
 
@@ -99,13 +54,13 @@ class ModelEvaluator:
 # Example usage
 if __name__ == "__main__":
     # Example trained model and data (replace with actual trained model and data)
-    # model = trained_sklearn_model
-    # X_test = test_data_features
-    # y_test = test_data_target
+    model = trained_sklearn_model
+    X_test = test_data_features
+    y_test = test_data_target
 
     # Initialize model evaluator with a specific strategy
-    # model_evaluator = ModelEvaluator(RegressionModelEvaluationStrategy())
-    # evaluation_metrics = model_evaluator.evaluate(model, X_test, y_test)
-    # print(evaluation_metrics)
+    model_evaluator = ModelEvaluator(RegressionModelEvaluationStrategy())
+    evaluation_metrics = model_evaluator.evaluate(model, X_test, y_test)
+    print(evaluation_metrics)
 
     pass
