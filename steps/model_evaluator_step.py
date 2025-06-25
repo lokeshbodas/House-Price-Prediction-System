@@ -11,17 +11,6 @@ from zenml import step
 def model_evaluator_step(
     trained_model: Pipeline, X_test: pd.DataFrame, y_test: pd.Series
 ) -> Tuple[dict, float]:
-    """
-    Evaluates the trained model using ModelEvaluator and RegressionModelEvaluationStrategy.
-
-    Parameters:
-    trained_model (Pipeline): The trained pipeline containing the model and preprocessing steps.
-    X_test (pd.DataFrame): The test data features.
-    y_test (pd.Series): The test data labels/target.
-
-    Returns:
-    dict: A dictionary containing evaluation metrics.
-    """
     # Ensure the inputs are of the correct type
     if not isinstance(X_test, pd.DataFrame):
         raise TypeError("X_test must be a pandas DataFrame.")
